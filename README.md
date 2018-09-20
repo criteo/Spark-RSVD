@@ -1,7 +1,7 @@
 # Spark-RSVD
 Spark-RSVD is a lib to compute approximate SVD decomposition of large sparse matrices (up to 100 million rows and columns) using an iterative algorithm for speed and efficiency.
 
-The iterative algorithm is based on a random initial starting point, hence its name of Randomized SVD algorithm. It is described in \[[1]\]. A tree reduce algorithm is used for fast QR decomposition of tall and skinny matrices \[[2]\].
+The iterative algorithm is based on a random initial starting point, hence its name of Randomized SVD algorithm. It is described in \[ [1](@references) \]. A tree reduce algorithm is used for fast QR decomposition of tall and skinny matrices \[ [2](@references) \].
 
 Here is an example that will compute a 100-dimension embedding on a 200K * 200K matrix
 
