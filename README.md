@@ -111,3 +111,11 @@ val rightSingularOnDriver = rightSingularVectors.get.toLocalMatrix
 \[1\] Halko, N., Martinsson, P. G., & Tropp, J. A. (2011). Finding structure with randomness: Probabilistic algorithms for constructing approximate matrix decompositions. SIAM review, 53(2), 217-288.
 
 \[2\] Constantine, P. G., & Gleich, D. F. (2011, June). Tall and skinny QR factorizations in MapReduce architectures. In Proceedings of the second international workshop on MapReduce and its applications (pp. 43-50). ACM.
+
+## License
+
+This project is licensed under the Apache 2.0 license.
+
+## Copyright
+
+Copyright © Criteo, 2018.
