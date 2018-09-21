@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/criteo/Spark-RSVD.svg?branch=master)](https://travis-ci.org/criteo/Spark-RSVD)
+
 # Spark-RSVD
 Spark-RSVD is a lib to compute approximate SVD decomposition of large sparse matrices (up to 100 million rows and columns) using an iterative algorithm for speed and efficiency.
 
