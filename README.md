@@ -21,7 +21,7 @@ Spark-RSVD needs some parameters which are collected together in a [case class](
 - `seed`: `Int`. Seed for the initialization of the random basis. Using always the same value should lead to repeatable results (though Spark may have unrepeatable results due to the varying order of execution of some operations)
 - `blockSize`: `Int`. Size of the blocks used in `BlockMatrix` and `SkinnyBlockMatrix`. See the section [data format](#data-format) for more explanations.
 - `partitionWidthInBlocks`: `Int`. Width of the partitions of the `BlockMatrix` in number of blocks. The `SkinnyBlockMatrix` is also partitioned vertically with the same number of blocks for consistency during the matrix-vector multiplication. See the section [data format](#data-format) for more explanations.
-- `partitionWidthInBlocks`: `Int`. Height of the partitions of the `BlockMatrix` in number of blocks. See the section [data format](#data-format) for more explanations.
+- `partitionHeightInBlocks`: `Int`. Height of the partitions of the `BlockMatrix` in number of blocks. See the section [data format](#data-format) for more explanations.
 - `computeLeftSingularVectors` and `computeRightSingularVectors`: `Boolean`. Indicates whether the left singular vectors and the right singular vectors should be computed.
 
 ### Sensible configuration
