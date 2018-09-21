@@ -84,7 +84,7 @@ class RandomizedSVDJobEndToEndTest
 
     logger.info(s"singular values : ${singularValues.toString()}")
 
-    assert(singularValues(0) === 95.300 +- 0.001)
+    assert(singularValues(0) === 98.300 +- 0.001)
     assert(singularValues(1) === 84.311 +- 0.001)
 
     FileUtils.deleteDirectory(tmpDir)
