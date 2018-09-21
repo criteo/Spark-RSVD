@@ -55,10 +55,10 @@ Here is an example that will compute a 100-dimension embedding on a 200K * 200K 
 ```Scala
 import com.criteo.rsvd._
 
-// create spark context
+// Create spark context
 val sc: SparkContext = new SparkContext(...)
 
-// create RSVD configuration
+// Create RSVD configuration
 val config = RSVDConfig(
   embeddingDim = 100,
   oversample = 30,
@@ -75,7 +75,7 @@ val matHeight = 200000 // 200K
 val matWidth = 200000 // 200K
 val numNonZeroEntries = 400000 // 400K
 
-//generate a sparse random matrix as an input (doesn't have to be symmetric)
+// Generate a sparse random matrix as an input (doesn't have to be symmetric)
 val randomMatrixEntries = sc.parallelize(0 until numNonZeroEntries).map {
   idx =>
     val random = new Random(42 + idx)
@@ -94,15 +94,15 @@ val matrixToDecompose = BlockMatrix.fromMatrixEntries(randomMatrixEntries,
 val RsvdResults(leftSingularVectors, singularValues, rightSingularVectors) =
   RSVD.run(matrixToDecompose, config, sc)
 
-//print the top 100 (embeddingDim=100) singular values in decreasing order:
+// Print the top 100 (embeddingDim=100) singular values in decreasing order:
 println(singularValues.toString())
 
-//fetch the left-singular vectors to driver, which will be a 200K x 100 matrix.
-//this is available because we set config.computeLeftSingularVectors = true
+// Fetch the left-singular vectors to driver, which will be a 200K x 100 matrix.
+// This is available because we set config.computeLeftSingularVectors = true.
 val leftSingularOnDriver = leftSingularVectors.get.toLocalMatrix
 
-//fetch the right-singular vectors to driver, which will be a 200K x 100 matrix.
-//this is available because we set config.computeRightSingularVectors = true
+// Fetch the right-singular vectors to driver, which will be a 200K x 100 matrix.
+// This is available because we set config.computeRightSingularVectors = true.
 val rightSingularOnDriver = rightSingularVectors.get.toLocalMatrix
 ```
 
