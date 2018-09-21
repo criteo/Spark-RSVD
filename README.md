@@ -26,14 +26,14 @@ Spark-RSVD needs some parameters which are collected together in a [case class](
 
 ### Sensible configuration
 
-An important configuration part of Spark-SVD library is the tuning how much memory per partition you should use.
+An important configuration part of Spark-RSVD library is the tuning how much memory per partition you should use.
 Using too much memory per Spark partition will likely results in tasks failing due to Out Of Memory errors,
 however we provide several configuration parameters to tune how the data should be distributed:
 - `blockSize`
 - `partitionWidthInBlocks`
 - `partitionHeightInBlocks`
 
-The most memory-intensive operation that occurs within Spark-SVD computation is a distributed multiplication of a Sparse Matrix with a Dense "tall-and-skinny" matrix, so if we can ensure that this step works, the whole pipeline will likely succeed.
+The most memory-intensive operation that occurs within Spark-RSVD computation is a distributed multiplication of a Sparse Matrix with a Dense "tall-and-skinny" matrix, so if we can ensure that this step works, the whole pipeline will likely succeed.
 Given the way we have chosen to distribute this operation, a given Spark partition will receive during this step the following inputs:
 - a number of "blocks" from the Sparse Matrix, precisely `partitionWidthInBlocks` * `partitionHeightInBlock` blocks. These blocks are square blocks of `blockSize` size.
 - a number of "blocks" from the tall-and-skinny Matrix, precisely `partitionWidthInBlocks` blocks. These blocks have `blockSize` rows and (`embeddingDim`+`oversample`) columns
@@ -43,8 +43,8 @@ For this example we are choosing `blockSize` = 50000, `partitionWidthInBlocks` =
 This means that a partition will receive the following data during the multiplication step:
 - partitionWidthInBlocks * blockSize * blockSize * partitionHeightInBlocks * 8 * 10<sup>-5</sup> = 66 MB of data coming from the sparse matrix
 - partitionWidthInBlocks * blockSize * (embeddingDim+oversample) * 8 = 1.7 GB of data coming from the tall-and-skinny matrix.
-Given these results, this means that you should make sure that you have roughly 2GB of memory available per Spark task if you want to run Spark-SVD with this configuration.
-Obviously, having less memory available for Spark tasks mean that you should tune your Spark-SVD configuration accordingly
+Given these results, this means that you should make sure that you have roughly 2GB of memory available per Spark task if you want to run Spark-RSVD with this configuration.
+Obviously, having less memory available for Spark tasks mean that you should tune your Spark-RSVD configuration accordingly
 
 ## Data format
 
