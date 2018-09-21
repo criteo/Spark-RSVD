@@ -1,8 +1,13 @@
+plugins {
+    id "java"
+    id "scala"
+    id "com.github.maiflai.scalatest" version "0.22"
+}
+
 group 'rsvd'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
-apply plugin: 'scala'
+
 
 sourceCompatibility = 1.8
 
@@ -34,4 +39,6 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.scalatest/scalatest
     testCompile group: 'org.scalatest', name: 'scalatest_2.11', version: '2.2.4'
+    testRuntime 'org.pegdown:pegdown:1.4.2'
 }
+
