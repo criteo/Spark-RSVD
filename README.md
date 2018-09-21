@@ -39,9 +39,9 @@ Given the way we have chosen to distribute this operation, a given Spark partiti
 - a number of "blocks" from the tall-and-skinny Matrix, precisely `partitionWidthInBlocks` blocks. These blocks have `blockSize` rows and (`embeddingDim`+`oversample`) columns
 
 Let's compute the overall amount of data that a partition will receive for a given configuration.
-For this example we are choosing `blockSize` = 50000, `partitionWidthInBlocks` = 35, `partitionHeightInBlocks` = 10, `embeddingDim` = 100, `oversample` = 30 and we are assuming a `density` of 10E-5 for the sparse matrix.
+For this example we are choosing `blockSize` = 50000, `partitionWidthInBlocks` = 35, `partitionHeightInBlocks` = 10, `embeddingDim` = 100, `oversample` = 30 and we are assuming a `density` of 10<sup>-5</sup> for the sparse matrix.
 This means that a partition will receive the following data during the multiplication step:
-- partitionWidthInBlocks * blockSize * blockSize * partitionHeightInBlocks * 8 * 10E-5 = 66 MB of data coming from the sparse matrix
+- partitionWidthInBlocks * blockSize * blockSize * partitionHeightInBlocks * 8 * 10<sup>-5</sup> = 66 MB of data coming from the sparse matrix
 - partitionWidthInBlocks * blockSize * (embeddingDim+oversample) * 8 = 1.7 GB of data coming from the tall-and-skinny matrix.
 Given these results, this means that you should make sure that you have roughly 2GB of memory available per Spark task if you want to run Spark-SVD with this configuration.
 Obviously, having less memory available for Spark tasks mean that you should tune your Spark-SVD configuration accordingly
