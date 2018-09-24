@@ -81,7 +81,6 @@ class RSVDTest extends FunSuite with PerTestSparkSession {
 
     val sTargetRankPlusOne = s(dim)
     val upperBound = sTargetRankPlusOne * upperBoundMultiplier
-    println((upperBoundMultiplier, sTargetRankPlusOne, upperBound))
 
     // Computing the residual norm
     val eye = BDM.eye[Double](matSize.toInt)
