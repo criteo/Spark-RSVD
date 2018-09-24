@@ -96,6 +96,7 @@ trait PerTestSparkSession extends BeforeAndAfterEach { self: Suite =>
         Some(Files.createTempDirectory("spark-unit-test-checkpoint-"))
       currentSession.get.sparkContext
         .setCheckpointDir(checkpointDir.get.toString)
+        currentSession.get.sparkContext.setLogLevel("WARN")
     }
     currentSession.get
   }
