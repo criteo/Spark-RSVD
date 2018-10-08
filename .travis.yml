@@ -1,3 +1,16 @@
 language: java
 script:
-  - ./gradlew test
+- "./gradlew test"
+before_deploy:
+- openssl aes-256-cbc -K $encrypted_1a824237c6f8_key -iv $encrypted_1a824237c6f8_iv
+  -in .travis/keys.tar.enc -out .travis/keys.tar -d
+- tar xvf .travis/keys.tar
+env:
+  global:
+    secure: gluBHjMrc0B2VBYBzmS6N0Bxec2EqPpricXKsTvi60KYm9lTMijpn85fW/FtCwIn5cY3qfSIZfJArCPzxet6VpF3KMN6deTXG8KNIjFe1u+yNOXUF4CTS3XUvzYSJTucoyUw+eSLqGjvWuKiMdAVyPHIBgwOlCWlrRq5VV2rLx/JRbTAod8PqO/yoDNhRkct4NcltBnUTuxxMuLT/Lh3fOd2ZWa46+tDCTPAfylD0yjxEGKfW074Rt69tZORVcrblNIw5IzqKvqlqC1+SUkOLCZxDi47hJqCOKAPqQfK9lz+FZoz2hlcF5HvnPm+RXQ4tfC8K4JdcM3u681qMBppsJGJs7/bR0O5TXYCZUbiTTfLfBb7CWz8qXp5Pp2V83HTDqxykvTIYWPrOmM6YNoH/P92lH1p3HZLuB/VlXd1S1ftzhcl8EZmF+MS02SWgWmtGk7AgwJEwYHt3f9tmMtNIFbVbLHym9HEZguOI2k7LSUceBhGqDKBlnzY9L9LPu8+dNo41r213kplKfXeBHHXQHMDweG07zT8EAy8k6+eJSnW+M2paBrbdIcdm0YNFpC9gnVjOSBOJe1d257i8zbNEOEN8ZIMn/vwBNJ5HPTH1iDbvPcXX+bf0Cao+L5QdgEZ9AVN0mAvIMs9TTSmlR1Xi5WZsjodASG66VRGZUmai1s=
+deploy:
+  provider: script
+  on:
+    tags: true
+    branch: master
+  script: gradle deploy
