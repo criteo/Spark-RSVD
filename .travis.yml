@@ -6,6 +6,8 @@ before_deploy:
   -in .travis/keys.tar.enc -out .travis/keys.tar -d
 - tar xvf .travis/keys.tar
 - ls -lart .travis/
+- ls -lart /home/travis/build/criteo/Spark-RSVD/.travis/secring.gpg
+- ls -lart .travis/secring.gpg
 - pwd
 env:
   global:
