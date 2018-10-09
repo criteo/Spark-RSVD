@@ -1,0 +1,27 @@
+apply plugin: 'com.bmuschko.nexus'
+
+modifyPom {
+  project {
+    name 'Spark-RSVD'
+    description 'R-SVD for large sparse matrices on SPark'
+    url ''
+    packaging 'jar'
+    organization {
+      name 'Criteo'
+      url 'https://www.criteo.com'
+    }
+    licenses {
+      license {
+        name 'Apache License v2.0'
+        url 'https://www.apache.org/licenses/LICENSE-2.0'
+        distribution 'repo'
+      }
+    }
+  }
+}
+
+nexus {
+  sign = true
+}
+
+    
