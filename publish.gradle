@@ -24,4 +24,7 @@ nexus {
   sign = true
 }
 
-    
+ extraArchive {
+     sources = false
+     javadoc = false
+ }    
