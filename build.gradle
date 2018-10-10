@@ -16,7 +16,7 @@ plugins {
     id 'io.codearte.nexus-staging' version '0.12.0'
 }
 
-group 'rsvd'
+group 'com.criteo'
 version '0.1-alpha'
 
 sourceCompatibility = 1.8
