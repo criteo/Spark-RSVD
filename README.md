@@ -114,6 +114,11 @@ val rightSingularOnDriver = rightSingularVectors.get.toLocalMatrix
 
 \[2\] Constantine, P. G., & Gleich, D. F. (2011, June). Tall and skinny QR factorizations in MapReduce architectures. In Proceedings of the second international workshop on MapReduce and its applications (pp. 43-50). ACM.
 
+## Authors of the initial commit (in alphabetical order):
+- Aloïs Bissuel
+- Ivan Lobov
+- Vincent Grosbois
+
 ## License
 
 This project is licensed under the Apache 2.0 license.
