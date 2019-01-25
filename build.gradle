@@ -64,40 +64,7 @@ publishing {
             from components.java
             artifact sourceJar
 
-            pom.withXml {
-                asNode().with {
-                    appendNode('packaging', 'jar')
-                    appendNode('name', 'Spark-RSVD')
-                    appendNode('description', 'R-SVD for large sparse matrices on Spark')
-                    appendNode('url', 'https://github.com/criteo/Spark-RSVD')
-                    appendNode('licenses').with {
-                        appendNode('license').with {
-                            appendNode('name', 'Apache License v2.0')
-                            appendNode('url', 'https://www.apache.org/licenses/LICENSE-2.0')
-                        }
-                    }
-                    appendNode('organization').with {
-                        appendNode('name', 'Criteo')
-                        appendNode('url', 'https://www.criteo.com')
-                    }
-                    appendNode('developers').with {
-                        appendNode('developer').with {
-                            appendNode('id', 'alois-bissuel')
-                            appendNode('name', 'Aloïs Bissuel')
-                            appendNode('email', 'a.bissuel@criteo.com')
-                            appendNode('organization', 'Criteo')
-                            appendNode('organizationUrl', 'https://www.criteo.com')
-                        }
-                        appendNode('developer').with {
-                            appendNode('id', 'vincent-grosbois')
-                            appendNode('name', 'Vincent Grosbois')
-                            appendNode('email', 'v.grosbois@criteo.com')
-                            appendNode('organization', 'Criteo')
-                            appendNode('organizationUrl', 'https://www.criteo.com')
-                        }
-                    }
-                }
-            }
+            customizePom(pom)
         }
     }
     
@@ -118,3 +85,44 @@ task sourceJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
+def customizePom(pom) {
+    pom.withXml {
+        def root = asNode()
+
+        // eliminate test-scoped dependencies (no need in maven central POMs)
+        root.dependencies.removeAll { dep ->
+            dep.scope == "test"
+        }
+
+        root.children().last() + {
+            description 'R-SVD for large sparse matrices on Spark'
+            name 'Spark-RSVD'
+            url 'https://github.com/criteo/Spark-RSVD'
+            organization {
+                name 'Criteo'
+                url 'https://www.criteo.com'
+            }
+            licenses {
+                license {
+                    name 'Apache License 2.0'
+                    url "https://www.apache.org/licenses/LICENSE-2.0"
+                    distribution "repo"
+                }
+            }
+            developers {
+                developer {
+                    id "alois-bissuel"
+                    name "Aloïs Bissuel"
+                    email "a.bissuel@criteo.com"
+                    organization "Criteo"
+                }
+                developer {
+                    id "vincent-grosbois"
+                    name "Vincent Grosbois"
+                    email "v.grosbois@criteo.com"
+                    organization "Criteo"
+                }
+            }
+        }
+    }
+}
