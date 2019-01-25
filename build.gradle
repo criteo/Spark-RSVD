@@ -10,7 +10,7 @@ buildscript {
 plugins {
     id "java"
     id "scala"
-    id "maven"
+    id "maven-publish"
     id "com.github.maiflai.scalatest" version "0.22"
     id "com.bmuschko.nexus" version "2.3.1"
     id 'io.codearte.nexus-staging' version '0.12.0'
@@ -23,6 +23,8 @@ sourceCompatibility = 1.8
 
 ext {
     sparkVersion = '2.3.1'
+    nexusPassword = "tutu"
+    nexusUsername = "toto"
 }
 
 repositories {
@@ -30,6 +32,8 @@ repositories {
 }
 
 apply from: 'publish.gradle'
+
+
 
 dependencies {
 
@@ -52,5 +56,65 @@ dependencies {
     // https://mvnrepository.com/artifact/org.scalatest/scalatest
     testCompile group: 'org.scalatest', name: 'scalatest_2.11', version: '2.2.4'
     testRuntime 'org.pegdown:pegdown:1.4.2'
+}
+
+publishing {
+    publications {
+        rsvd(MavenPublication) {
+            from components.java
+            artifact sourceJar
+
+            pom.withXml {
+                asNode().with {
+                    appendNode('packaging', 'jar')
+                    appendNode('name', 'Spark-RSVD')
+                    appendNode('description', 'R-SVD for large sparse matrices on Spark')
+                    appendNode('url', 'https://github.com/criteo/Spark-RSVD')
+                    appendNode('licenses').with {
+                        appendNode('license').with {
+                            appendNode('name', 'Apache License v2.0')
+                            appendNode('url', 'https://www.apache.org/licenses/LICENSE-2.0')
+                        }
+                    }
+                    appendNode('organization').with {
+                        appendNode('name', 'Criteo')
+                        appendNode('url', 'https://www.criteo.com')
+                    }
+                    appendNode('developers').with {
+                        appendNode('developer').with {
+                            appendNode('id', 'alois-bissuel')
+                            appendNode('name', 'Aloïs Bissuel')
+                            appendNode('email', 'a.bissuel@criteo.com')
+                            appendNode('organization', 'Criteo')
+                            appendNode('organizationUrl', 'https://www.criteo.com')
+                        }
+                        appendNode('developer').with {
+                            appendNode('id', 'vincent-grosbois')
+                            appendNode('name', 'Vincent Grosbois')
+                            appendNode('email', 'v.grosbois@criteo.com')
+                            appendNode('organization', 'Criteo')
+                            appendNode('organizationUrl', 'https://www.criteo.com')
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    repositories {
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+            credentials {
+                username nexusUsername
+                password nexusPassword
+            }
+        }
+
+    }
+}
+
+task sourceJar(type: Jar, dependsOn: classes) {
+    classifier 'sources'
+    from sourceSets.main.allSource
 }
 
