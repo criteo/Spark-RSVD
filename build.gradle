@@ -80,32 +80,32 @@ publishing {
             from components.java
 
             pom {
-                description 'R-SVD for large sparse matrices on Spark'
-                name 'Spark-RSVD'
-                url 'https://github.com/criteo/Spark-RSVD'
+                description = 'R-SVD for large sparse matrices on Spark'
+                name = 'Spark-RSVD'
+                url = 'https://github.com/criteo/Spark-RSVD'
                 organization {
-                    name 'Criteo'
-                    url 'https://www.criteo.com'
+                    name = 'Criteo'
+                    url = 'https://www.criteo.com'
                 }
                 licenses {
                     license {
-                        name 'Apache License 2.0'
-                        url "https://www.apache.org/licenses/LICENSE-2.0"
-                        distribution "repo"
+                        name = 'Apache License 2.0'
+                        url = "https://www.apache.org/licenses/LICENSE-2.0"
+                        distribution = "repo"
                     }
                 }
                 developers {
                     developer {
-                        id "alois-bissuel"
-                        name "Aloïs Bissuel"
-                        email "a.bissuel@criteo.com"
-                        organization "Criteo"
+                        id = "alois-bissuel"
+                        name = "Aloïs Bissuel"
+                        email = "a.bissuel@criteo.com"
+                        organization = "Criteo"
                     }
                     developer {
-                        id "vincent-grosbois"
-                        name "Vincent Grosbois"
-                        email "v.grosbois@criteo.com"
-                        organization "Criteo"
+                        id = "vincent-grosbois"
+                        name = "Vincent Grosbois"
+                        email = "v.grosbois@criteo.com"
+                        organization = "Criteo"
                     }
                 }
             }
