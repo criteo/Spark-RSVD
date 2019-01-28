@@ -1,6 +1,4 @@
 language: java
-before_install:
-  - gradle wrapper --gradle-version 5.1.1
 script:
 - "./gradlew test"
 before_deploy:
