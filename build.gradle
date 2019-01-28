@@ -11,6 +11,7 @@ plugins {
     id "java"
     id "scala"
     id "maven-publish"
+    id "signing"
     id "com.github.maiflai.scalatest" version "0.22"
     id "com.bmuschko.nexus" version "2.3.1"
     id 'io.codearte.nexus-staging' version '0.12.0'
@@ -30,8 +31,6 @@ ext {
 repositories {
     mavenCentral()
 }
-
-apply from: 'publish.gradle'
 
 
 
@@ -58,13 +57,66 @@ dependencies {
     testRuntime 'org.pegdown:pegdown:1.4.2'
 }
 
+//signing {
+//    sign configurations.archives
+//}
+
+signing {
+    sign publishing.publications
+}
+
+task sourceJar(type: Jar, dependsOn: classes) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocTwoJar(type: Jar, dependsOn: javadoc) {
+    classifier "javadoc"
+    from javadoc.destinationDir
+}
+
 publishing {
     publications {
         rsvd(MavenPublication) {
             from components.java
-            artifact sourceJar
 
-            customizePom(pom)
+            pom {
+                description 'R-SVD for large sparse matrices on Spark'
+                name 'Spark-RSVD'
+                url 'https://github.com/criteo/Spark-RSVD'
+                organization {
+                    name 'Criteo'
+                    url 'https://www.criteo.com'
+                }
+                licenses {
+                    license {
+                        name 'Apache License 2.0'
+                        url "https://www.apache.org/licenses/LICENSE-2.0"
+                        distribution "repo"
+                    }
+                }
+                developers {
+                    developer {
+                        id "alois-bissuel"
+                        name "Aloïs Bissuel"
+                        email "a.bissuel@criteo.com"
+                        organization "Criteo"
+                    }
+                    developer {
+                        id "vincent-grosbois"
+                        name "Vincent Grosbois"
+                        email "v.grosbois@criteo.com"
+                        organization "Criteo"
+                    }
+                }
+            }
+
+            artifact(sourceJar) {
+                classifier = 'sources'
+            }
+            artifact(javadocTwoJar) {
+                classifier = 'javadoc'
+            }
         }
     }
     
@@ -80,49 +132,8 @@ publishing {
     }
 }
 
-task sourceJar(type: Jar, dependsOn: classes) {
-    classifier 'sources'
-    from sourceSets.main.allSource
-}
-
-def customizePom(pom) {
-    pom.withXml {
-        def root = asNode()
-
-        // eliminate test-scoped dependencies (no need in maven central POMs)
-        root.dependencies.removeAll { dep ->
-            dep.scope == "test"
-        }
-
-        root.children().last() + {
-            description 'R-SVD for large sparse matrices on Spark'
-            name 'Spark-RSVD'
-            url 'https://github.com/criteo/Spark-RSVD'
-            organization {
-                name 'Criteo'
-                url 'https://www.criteo.com'
-            }
-            licenses {
-                license {
-                    name 'Apache License 2.0'
-                    url "https://www.apache.org/licenses/LICENSE-2.0"
-                    distribution "repo"
-                }
-            }
-            developers {
-                developer {
-                    id "alois-bissuel"
-                    name "Aloïs Bissuel"
-                    email "a.bissuel@criteo.com"
-                    organization "Criteo"
-                }
-                developer {
-                    id "vincent-grosbois"
-                    name "Vincent Grosbois"
-                    email "v.grosbois@criteo.com"
-                    organization "Criteo"
-                }
-            }
-        }
-    }
+artifacts {
+    archives jar
+    archives sourceJar
+    archives javadocTwoJar
 }
