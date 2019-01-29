@@ -22,10 +22,16 @@ version '0.1-alpha'
 
 sourceCompatibility = 1.8
 
+
+
 ext {
     sparkVersion = '2.3.1'
-    nexusPassword = "tutu"
-    nexusUsername = "toto"
+    if (!project.hasProperty("nexusUsername")) {
+        nexusUsername = "toto"
+    }
+    if (!project.hasProperty("nexusPassword")) {
+        nexusPassword = "tutu"
+    }
 }
 
 repositories {
@@ -127,7 +133,6 @@ publishing {
                 password nexusPassword
             }
         }
-
     }
 }
 
