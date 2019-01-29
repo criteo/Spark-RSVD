@@ -12,8 +12,9 @@ deploy:
   skip_cleanup: true # needed so that no "git stash" is executed, which would then remove the pgp keys extracted in before_deploy
   provider: script
   on:
-    tags: true
-    branch: master
-  script: ./gradlew publish -PnexusUsername="criteo-oss" -PnexusPassword="${SONATYPE_PASSWORD}" -Psigning.keyId="85532E9E" -Psigning.password="${SONATYPE_PASSWORD}" -Psigning.secretKeyRingFile=".travis/secring.gpg"
+  #  tags: true
+  #  branch: master
+    all_branches: true
+  script: ./gradlew publishRsvdPublicationToMavenRepository -PnexusUsername="criteo-oss" -PnexusPassword="${SONATYPE_PASSWORD}" -Psigning.keyId="85532E9E" -Psigning.password="${SONATYPE_PASSWORD}" -Psigning.secretKeyRingFile=".travis/secring.gpg"
 after_deploy:
 - ./gradlew closeAndReleaseRepository -PnexusUsername="criteo-oss" -PnexusPassword="${SONATYPE_PASSWORD}" -i
