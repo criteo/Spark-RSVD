@@ -18,7 +18,7 @@ plugins {
 }
 
 group 'com.criteo'
-version '0.1-alpha'
+version '0.1-alpha2'
 
 sourceCompatibility = 1.8
 
