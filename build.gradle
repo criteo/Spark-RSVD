@@ -142,3 +142,7 @@ artifacts {
     archives javadocTwoJar
 }
 
+nexusStaging {
+    username nexusUsername
+    password nexusPassword
+}
