@@ -145,4 +145,5 @@ artifacts {
 nexusStaging {
     username nexusUsername
     password nexusPassword
+    stagingProfileId "2881c6b196bac1"
 }
