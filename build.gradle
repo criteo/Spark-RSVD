@@ -4,12 +4,12 @@ plugins {
     id "maven-publish"
     id "signing"
     id "com.github.maiflai.scalatest" version "0.22"
-    id "com.bmuschko.nexus" version "2.3.1"
-    id 'io.codearte.nexus-staging' version '0.20.0'
+    id 'io.codearte.nexus-staging'  version '0.20.0'
+    id 'de.marcphilipp.nexus-publish' version '0.2.0'
 }
 
 group 'com.criteo'
-version '0.1-alpha2'
+version '0.1-alpha3'
 
 sourceCompatibility = 1.8
 
@@ -23,6 +23,7 @@ ext {
     if (!project.hasProperty("nexusPassword")) {
         nexusPassword = "tutu"
     }
+    println("nexus Password: $nexusPassword")
 }
 
 repositories {
@@ -105,6 +106,11 @@ publishing {
                         organization = "Criteo"
                     }
                 }
+                scm {
+                    connection = "scm:git:git://github.com/criteo/Spark-RSVD.git"
+                    developerConnection = "scm:git:git://github.com/criteo/Spark-RSVD.git"
+                    url = "https://github.com/criteo/Spark-RSVD"
+                }
             }
 
             artifact(sourceJar) {
@@ -134,7 +140,10 @@ artifacts {
 }
 
 nexusStaging {
-    username nexusUsername
-    password nexusPassword
-    stagingProfileId "2881c6b196bac1"
+    serverUrl = "https://oss.sonatype.org/service/local/"
+    packageGroup = 'com.criteo'
+    username = "criteo-oss"
+    password = System.getenv("SONATYPE_PASSWORD")
+    numberOfRetries = 50
+    delayBetweenRetriesInMillis = 3000
 }
