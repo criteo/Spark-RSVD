@@ -1,24 +1,15 @@
-buildscript {
-  repositories {
-    jcenter()
-  }
-  dependencies {
-    classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.6.1'
-  }
-}
-
 plugins {
     id "java"
     id "scala"
     id "maven-publish"
     id "signing"
     id "com.github.maiflai.scalatest" version "0.22"
-    id "com.bmuschko.nexus" version "2.3.1"
-    id 'io.codearte.nexus-staging' version '0.20.0'
+    id 'io.codearte.nexus-staging'  version '0.20.0'
+    id 'de.marcphilipp.nexus-publish' version '0.2.0'
 }
 
 group 'com.criteo'
-version '0.1-alpha'
+version '1.0'
 
 sourceCompatibility = 1.8
 
@@ -114,6 +105,11 @@ publishing {
                         organization = "Criteo"
                     }
                 }
+                scm {
+                    connection = "scm:git:git://github.com/criteo/Spark-RSVD.git"
+                    developerConnection = "scm:git:git://github.com/criteo/Spark-RSVD.git"
+                    url = "https://github.com/criteo/Spark-RSVD"
+                }
             }
 
             artifact(sourceJar) {
@@ -127,7 +123,7 @@ publishing {
     
     repositories {
         maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+            url 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
             credentials {
                 username nexusUsername
                 password nexusPassword
@@ -142,3 +138,11 @@ artifacts {
     archives javadocTwoJar
 }
 
+nexusStaging {
+    serverUrl = "https://oss.sonatype.org/service/local/"
+    packageGroup = 'com.criteo'
+    username = "criteo-oss"
+    password = System.getenv("SONATYPE_PASSWORD")
+    numberOfRetries = 50
+    delayBetweenRetriesInMillis = 3000
+}

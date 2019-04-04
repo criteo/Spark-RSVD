@@ -14,6 +14,6 @@ deploy:
   on:
     tags: true
     branch: master
-  script: ./gradlew publish -PnexusUsername="criteo-oss" -PnexusPassword="${SONATYPE_PASSWORD}" -Psigning.keyId="85532E9E" -Psigning.password="${SONATYPE_PASSWORD}" -Psigning.secretKeyRingFile=".travis/secring.gpg"
+  script: ./gradlew publish --info closeAndReleaseRepository -PnexusUsername="criteo-oss" -PnexusPassword="${SONATYPE_PASSWORD}" -Psigning.keyId="85532E9E" -Psigning.password="${SONATYPE_PASSWORD}" -Psigning.secretKeyRingFile=".travis/secring.gpg"
 after_deploy:
 - ./gradlew closeAndReleaseRepository -PnexusUsername="criteo-oss" -PnexusPassword="${SONATYPE_PASSWORD}" -i
