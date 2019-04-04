@@ -116,8 +116,8 @@ val rightSingularOnDriver = rightSingularVectors.get.toLocalMatrix
 
 ## Authors of the initial commit (in alphabetical order):
 - Aloïs Bissuel
-- Ivan Lobov
 - Vincent Grosbois
+- Ivan Lobov
 
 ## License
 
