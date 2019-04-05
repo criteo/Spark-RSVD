@@ -50,6 +50,8 @@ Obviously, having less memory available for Spark tasks mean that you should tun
 
 ## Data format
 
+The sparse matrix given to the library should be stored in [coordinate format](https://en.wikipedia.org/wiki/Sparse_matrix#Coordinate_list_(COO)). It expects an RDD of `MatrixEntry` (from Spark MLLib `org.apache.spark.mllib.linalg.distributed`), which stores the row and column indices as `Long` and the value as `Double`. See example below for further reference.
+
 ## Example
 
 Here is an example that will compute a 100-dimension embedding on a 200K * 200K matrix
