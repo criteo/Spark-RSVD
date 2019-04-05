@@ -108,6 +108,26 @@ val leftSingularOnDriver = leftSingularVectors.get.toLocalMatrix
 val rightSingularOnDriver = rightSingularVectors.get.toLocalMatrix
 ```
 
+## Installation
+
+To use, simply add the following dependency to your gradle build file
+
+```groovy
+compile "com.criteo:rsvd:1.0"
+```
+
+or the following dependency to your project's POM file
+
+```xml
+<dependency>
+  <groupId>com.criteo</groupId>
+  <artifactId>rsvd</artifactId>
+  <version>1.0</version>
+  <scope>compile</scope>
+</dependency>
+```
+
+
 ## References:
 
 \[1\] Halko, N., Martinsson, P. G., & Tropp, J. A. (2011). Finding structure with randomness: Probabilistic algorithms for constructing approximate matrix decompositions. SIAM review, 53(2), 217-288.
