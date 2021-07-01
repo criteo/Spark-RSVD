@@ -17,7 +17,7 @@ package com.criteo.rsvd
 
 import breeze.linalg.svd.SVD
 import breeze.linalg.{svd, DenseVector => BDV}
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.SparkContext
 

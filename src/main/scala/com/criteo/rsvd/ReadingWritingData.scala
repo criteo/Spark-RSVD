@@ -18,7 +18,7 @@ package com.criteo.rsvd
 import java.nio.ByteBuffer
 
 import com.esotericsoftware.kryo.Kryo
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 import de.javakaffee.kryoserializers.UnmodifiableCollectionsSerializer
 import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.hadoop.io.{BytesWritable, NullWritable}
