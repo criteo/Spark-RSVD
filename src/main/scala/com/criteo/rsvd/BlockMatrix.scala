@@ -20,7 +20,7 @@ import java.math.RoundingMode
 import breeze.linalg.{DenseMatrix => BDM, DenseVector => BDV}
 import com.google.common.math.{IntMath, LongMath}
 import com.google.common.primitives.Ints
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 import org.apache.spark.SparkException
 import org.apache.spark.mllib.linalg.distributed.MatrixEntry
 import org.apache.spark.rdd.{PartitionPruningRDD, RDD, UnionRDD}

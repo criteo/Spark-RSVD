@@ -18,7 +18,6 @@ package com.criteo.rsvd
 import java.math.RoundingMode
 
 import breeze.linalg.{diag, max, sum, svd, DenseMatrix => BDM}
-
 import com.criteo.rsvd.ReadingWritingData.RandomizedSVDKryoRegistrator
 import com.google.common.math.IntMath
 import org.apache.spark.mllib.distributed.BlockMatrixTest

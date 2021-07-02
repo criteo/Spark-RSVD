@@ -21,7 +21,7 @@ import breeze.linalg.svd.SVD
 import breeze.linalg.{diag, max, svd, DenseMatrix => BDM, DenseVector => BDV}
 import com.google.common.math.LongMath
 import com.google.common.primitives.Ints
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 import org.apache.spark.HashPartitioner
 import org.apache.spark.mllib.linalg.distributed.MatrixEntry
 import org.apache.spark.rdd.RDD

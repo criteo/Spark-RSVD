@@ -21,7 +21,7 @@ import org.apache.commons.io.FileUtils
 import org.scalatest.FunSuite
 import org.scalactic.Tolerance._
 import com.google.common.io.Resources
-import com.typesafe.scalalogging.slf4j.StrictLogging
+import com.typesafe.scalalogging.StrictLogging
 import org.apache.spark.mllib.linalg.distributed.MatrixEntry
 import org.apache.spark.storage.StorageLevel
 
