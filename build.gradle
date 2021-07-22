@@ -53,12 +53,14 @@ dependencies {
     testRuntime 'org.pegdown:pegdown:1.4.2'
 }
 
-//signing {
-//    sign configurations.archives
-//}
-
 signing {
-    sign publishing.publications
+    def secretKey = System.getenv("MAVEN_SECRING_GPG_BASE64")
+    def password = System.getenv("SONATYPE_PASSWORD")
+
+    if (secretKey != null && password != null) {
+        useInMemoryPgpKeys(secretKey, password)
+        sign(publishing.publications.withType(MavenPublication))
+    }
 }
 
 task sourceJar(type: Jar, dependsOn: classes) {
