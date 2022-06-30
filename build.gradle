@@ -6,10 +6,11 @@ plugins {
     id "com.github.maiflai.scalatest" version "0.25"
     id 'io.codearte.nexus-staging'  version '0.20.0'
     id 'de.marcphilipp.nexus-publish' version '0.2.0'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 group 'com.criteo'
-version '1.0-spark3'
+version '1.1-spark3'
 
 sourceCompatibility = 1.8
 
@@ -18,10 +19,10 @@ sourceCompatibility = 1.8
 ext {
     sparkVersion = '3.1.1'
     if (!project.hasProperty("nexusUsername")) {
-        nexusUsername = "toto"
+        nexusUsername = "defaultNexusUserName"
     }
     if (!project.hasProperty("nexusPassword")) {
-        nexusPassword = "tutu"
+        nexusPassword = "defaultNexusUserPassword"
     }
 }
 
@@ -73,6 +74,11 @@ task javadocTwoJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
+shadowJar {
+    zip64 = true
+    archiveClassifier.set('uber')
+}
+
 publishing {
     publications {
         rsvd(MavenPublication) {
@@ -120,6 +126,9 @@ publishing {
             artifact(javadocTwoJar) {
                 classifier = 'javadoc'
             }
+            artifact(shadowJar) {
+                classifier = 'shadowJar'
+            }
         }
     }
     
@@ -138,6 +147,7 @@ artifacts {
     archives jar
     archives sourceJar
     archives javadocTwoJar
+    archives shadowJar
 }
 
 nexusStaging {

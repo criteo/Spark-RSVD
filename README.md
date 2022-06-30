@@ -52,7 +52,9 @@ Obviously, having less memory available for Spark tasks mean that you should tun
 
 The sparse matrix given to the library should be stored in [coordinate format](https://en.wikipedia.org/wiki/Sparse_matrix#Coordinate_list_(COO)). It expects an RDD of `MatrixEntry` (from Spark MLLib `org.apache.spark.mllib.linalg.distributed`), which stores the row and column indices as `Long` and the value as `Double`. See example below for further reference.
 
-## Example
+## Examples
+
+### Scala example
 
 Here is an example that will compute a 100-dimension embedding on a 200K * 200K matrix
 
@@ -110,12 +112,47 @@ val leftSingularOnDriver = leftSingularVectors.get.toLocalMatrix
 val rightSingularOnDriver = rightSingularVectors.get.toLocalMatrix
 ```
 
+### Pyspark example
+
+This example is extracted from [example.py](python/example.py) where you will 
+be able to see the PySpark setup and the helpers we suggest you to use
+(`RSVDConfig` and `run_rvsd`).
+
+```python
+config = RSVDConfig(
+    embedding_dim=100,
+    oversample=30,
+    power_iter=1,
+    seed=0,
+    block_size=1_000,
+    partition_width_in_blocks=35,
+    partition_height_in_blocks=10,
+    compute_left_singular_vectors=True,
+    compute_right_singular_vectors=True,
+)
+
+mat_height = 10_000
+mat_width = 10_000
+num_non_zero_entries = 20_000
+density = num_non_zero_entries / (mat_height * mat_width)
+
+random_matrix = sps.random(mat_height, mat_width, density)
+random_matrix_pdf = pd.DataFrame({"row": random_matrix.row, "col": random_matrix.col, "data": random_matrix.data})
+random_matrix_df = ss.createDataFrame(random_matrix_pdf)
+
+left_embeddings_df, singular_values_array, right_embeddings_df = run_rvsd(
+    random_matrix_df, row_index_column="row", column_index_column="col", value_column="data", config=config
+)
+```
+
 ## Installation
+
+### Scala installation
 
 To use, simply add the following dependency to your gradle build file
 
 ```groovy
-compile "com.criteo:rsvd:1.0"
+compile "com.criteo:rsvd:1.1"
 ```
 
 or the following dependency to your project's POM file
@@ -124,11 +161,15 @@ or the following dependency to your project's POM file
 <dependency>
   <groupId>com.criteo</groupId>
   <artifactId>rsvd</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <scope>compile</scope>
 </dependency>
 ```
 
+### Python installation
+
+You must first download the jar and then add it to your spark config when you launch it.
+See [example.py](python/example.py) for a standalone toy example in a local Spark context.
 
 ## References:
 
