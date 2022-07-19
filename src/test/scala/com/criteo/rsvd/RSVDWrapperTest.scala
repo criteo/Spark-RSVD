@@ -22,6 +22,7 @@ import com.typesafe.scalalogging.StrictLogging
 import org.apache.commons.io.FileUtils
 import org.scalactic.Tolerance._
 import org.scalatest.FunSuite
+import scala.collection.JavaConverters._
 
 class RSVDWrapperTest
     extends FunSuite
@@ -69,11 +70,13 @@ class RSVDWrapperTest
     val (_, singularValuesArray, _) =
       RSVDWrapper.run(entries, "i", "j", "value", rsvdConf)
 
-    logger.info(
-      s"singular values : ${singularValuesArray.mkString("Array(", ", ", ")")}")
+    val singularValuesList = singularValuesArray.asScala
 
-    assert(singularValuesArray(0) === 95.297 +- 0.001)
-    assert(singularValuesArray(1) === 84.311 +- 0.001)
+    logger.info(
+      s"singular values : ${singularValuesList.mkString("Array(", ", ", ")")}")
+
+    assert(singularValuesList(0) === 95.297 +- 0.001)
+    assert(singularValuesList(1) === 84.311 +- 0.001)
 
     FileUtils.deleteDirectory(tmpDir)
 
