@@ -32,4 +32,4 @@ jobs:
       env:
         SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         MAVEN_SECRING_GPG_BASE64: ${{ secrets.MAVEN_SECRING_PASSWORD }}
-      run: ./gradlew publish --info closeAndReleaseRepository -PnexusUsername="criteo-oss" -PnexusPassword="${SONATYPE_PASSWORD}" -Psigning.keyId="85532E9E" -Psigning.password="${SONATYPE_PASSWORD}"
+      run: ./gradlew publish --info closeAndReleaseRepository -PnexusUsername="criteo-oss" -PnexusPassword="${SONATYPE_PASSWORD}" -Psigning.keyId="85532E9E" -Psigning.password="${MAVEN_SECRING_GPG_BASE64}"
