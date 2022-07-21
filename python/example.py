@@ -11,7 +11,7 @@ import scipy.sparse as sps
 
 JAR_URL_FORMAT = (
     "https://repository.sonatype.org/service/local/repositories/central-proxy"
-    "/content/com/criteo/rsvd/{rsvd_jar_version}/rsvd-{rsvd_jar_version}.jar"
+    "/content/com/criteo/rsvd/{rsvd_jar_version}/rsvd-{rsvd_jar_version}-shadowJar.jar"
 )
 
 
